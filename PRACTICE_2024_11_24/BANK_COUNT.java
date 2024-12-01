@@ -11,7 +11,6 @@ public class BANK_COUNT {
 
         System.out.println(multiProcess(2900, 200, 500));
 
-
     }
 
     public static String multiProcess(double balance, double withdraw, double deposit) {
@@ -40,8 +39,6 @@ public class BANK_COUNT {
     public static void showBlance(double balance){
         System.out.println(balance);
     }
-
-
 }
 
 
