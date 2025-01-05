@@ -45,25 +45,13 @@ public class Main {
                 switch (choice) {
                     case 1 -> atm.showBalance(username, users);
                     case 2 -> atm.depositAmount(username, users, sc);
-//                    case 3 -> atm.withdrawAmount();
-//                    case 4 -> atm.transferMoney();
+                    case 3 -> atm.withdrawAmount(username,users,sc);
+                    case 4 -> atm.transferMoney(username, users, sc);
                     case 5 -> System.out.println("Çıkış yapılıyor");
 
                 }
             }
         }
-
-
-
-
-
-
-
-
-
-
-
-
 
         else{
             System.out.println("Hatalı kullanıcı adı ve ya şifre hatalı!");

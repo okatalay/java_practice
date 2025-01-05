@@ -34,7 +34,6 @@ public class ATM {
 
     public void showBalance(String username, Map<String, Map<String, Object>> users) {
 
-        // { "User1" : { "Şifre" : "Password123", "Bakiye" : 5000.0 },  "User2" : { "Şifre" : "Password1236", "Bakiye" : 8000 }}
 
         Object userBalance = users.get(username).get("Bakiye");
         System.out.println("Mevcut bakiyeniz : " + userBalance);
@@ -54,4 +53,70 @@ public class ATM {
         System.out.println("Para yatırma işlemi başarılı.");
         System.out.println("Güncel bakiyeniz : " + newBlance);
     }
+
+
+
+    public void withdrawAmount(String username, Map<String, Map<String, Object>> users, Scanner sc) {
+
+        Map<String, Object> userData = users.get(username);
+        double currentBalance = (double) userData.get("Bakiye");
+
+        System.out.println("Çekmek istediğiniz miktarı giriniz: ");
+        double amount = sc.nextDouble();
+
+        if (amount > currentBalance) {
+            System.out.println("Yetersiz bakiye !");
+        }
+        else {
+            double newBalance = currentBalance - amount;
+            userData.put("Bakiye", newBalance);
+            System.out.println("Para çekme işlemi başarılı. Güncel bakiyeniz : " + newBalance);
+        }
+    }
+
+    // { "User1" : { "Şifre" : "Password123", "Bakiye" : 5000.0 },  "User2" : { "Şifre" : "Password1236", "Bakiye" : 8000 }}
+
+    public void transferMoney(String username, Map<String, Map<String, Object>> users, Scanner sc) {
+
+        Map<String, Object> userData = users.get(username);
+        double currentBalance = (double) userData.get("Bakiye");
+
+        System.out.println("Transfer yapmak istediğiniz miktarı giriniz: ");
+        double transferAmount = sc.nextDouble();
+        sc.nextLine();
+
+        if (transferAmount > currentBalance) {
+            System.out.println("Yetersiz bakiye !");
+        }
+        else {
+            System.out.println("Transfer yapmak istediğiniz kullanıcı ismini giriniz: ");
+            String transferName = sc.nextLine();
+
+            if(username.equals(transferName)){
+                System.out.println("Kendinize transfer yapamazsınız !");
+
+                return;
+            }
+
+            if(users.containsKey(transferName)){
+
+                Map<String, Object> transferData = users.get(transferName);
+                double transferUserBalance = (double) transferData.get("Bakiye");
+
+                userData.put("Bakiye", currentBalance-transferAmount);
+                transferData.put("Bakiye", transferUserBalance+transferAmount);
+
+                System.out.println("Transfer işlemi başarıyla tamamlandı. Mevcut bakiyeniz: " + (currentBalance-transferAmount));
+
+            }
+            else {
+                System.out.println("Girmiş olduğunuz kullanıcı sistemde mevcut değil.");
+            }
+        }
+
+
+
+
+    }
+
 }
